@@ -1,0 +1,30 @@
+services:
+  app:
+    image: blog-frontend
+    build:
+      context: ./frontend
+      dockerfile: dev.Dockerfile
+    # environment:
+    #   - BACKEND_URL=/api
+    volumes:
+      - ./frontend/:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+  backend:
+    image: blog-backend
+    build:
+      context: ./backend
+      dockerfile: dev.Dockerfile
+    ports:
+      - 3003:3003
+    volumes:
+      - ./backend/:/usr/src/app
+  nginx:
+    image: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+volumes:
+  node_modules:
