@@ -6,7 +6,8 @@ COPY . .
 
 RUN npm ci
 
-ENV START_CMD="npm run start"
+ARG START_CMD="npm run start"
+ENV START_CMD=$START_CMD
 
 CMD ["sh", "-c", "$START_CMD"]
 
