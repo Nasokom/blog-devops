@@ -20,7 +20,7 @@ jobs:
 
       - name: Build blog-backend image
         working-directory: ./backend
-        run: docker build -e START_CMD="npm run start:test" -t blog-backend -f Dockerfile .
+        run: docker build --build-arg START_CMD="npm run start:test" -t blog-backend -f Dockerfile .
 
       - name: Build blog-frontend image
         working-directory: ./frontend
