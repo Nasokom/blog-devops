@@ -47,7 +47,9 @@ const BlogView = ({ close }) => {
         </p>
         <p>
           number of likes : {blog.likes} likes{" "}
-          <button onClick={handleLike}>like</button>
+          <button data-testid="likesCount" onClick={handleLike}>
+            like
+          </button>
         </p>
         <p>author : {blog.author}</p>
 

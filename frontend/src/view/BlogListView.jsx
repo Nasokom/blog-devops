@@ -18,7 +18,11 @@ const BlogListView = ({ user }) => {
       <AppleList data={{ list: blogs, type: "blogs" }}>
         <p>Blogs Disk</p>
         {/* <Togglable buttonLabel={"create"} ref={createFormRef}></Togglable> */}
-        <button onClick={() => setToggle(!toggle)}>create</button>
+        {!toggle && (
+          <button data-testid={"open_modal"} onClick={() => setToggle(!toggle)}>
+            create
+          </button>
+        )}
       </AppleList>
 
       <Outlet />

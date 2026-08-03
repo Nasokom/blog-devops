@@ -4,6 +4,8 @@ services:
     build:
       context: ./frontend
       dockerfile: dev.Dockerfile
+    ports:
+      - 5173:5173
     # environment:
     #   - BACKEND_URL=/api
     volumes:

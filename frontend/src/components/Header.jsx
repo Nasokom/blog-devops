@@ -15,40 +15,45 @@ const Header = () => {
 
   return (
     <nav>
-      <span
-        className="pointer"
-        onClick={() =>
-          dispatch(
-            triggerNotification({
-              content: "Not available yet",
-              type: "info",
-            }),
-          )
-        }
-      >
-        <img src="/icons/apple-icon.svg" width={20} />
-      </span>
+      <div className="nav-group">
+        <span
+          className="pointer"
+          onClick={() =>
+            dispatch(
+              triggerNotification({
+                content: "Not available yet",
+                type: "info",
+              }),
+            )
+          }
+        >
+          <img src="/icons/apple-icon.svg" width={20} />
+        </span>
 
-      <NavLink
-        to="/blogs"
-        className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "active-link" : ""
-        }
-      >
-        blogs
-      </NavLink>
-      <NavLink
-        to="/users"
-        className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "active-link" : ""
-        }
-      >
-        users
-      </NavLink>
-      {user && <>{user.username} is logged in</>}
-      <button onClick={handleLogout} name="logout">
-        logout
-      </button>
+        <NavLink
+          to="/blogs"
+          data-testid={"blogs-link"}
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "active-link" : ""
+          }
+        >
+          blogs
+        </NavLink>
+        <NavLink
+          to="/users"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "active-link" : ""
+          }
+        >
+          users
+        </NavLink>
+      </div>
+      <div className="nav-group">
+        {user && <>{user.username} is logged in</>}
+        <button onClick={handleLogout} data-testid="logout-btn" name="logout">
+          logout
+        </button>
+      </div>
     </nav>
   );
 };

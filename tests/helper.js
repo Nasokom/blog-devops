@@ -19,7 +19,7 @@ const blog = {
 const login = async (page, content) => {
   const usrElt = await page.getByLabel("username");
   const pswdElt = await page.getByLabel("password");
-  const submitElt = await page.getByRole("button");
+  const submitElt = await page.getByRole("button", { name: "start" });
 
   await usrElt.fill(content.username);
   await pswdElt.fill(content.password);
@@ -27,11 +27,14 @@ const login = async (page, content) => {
 };
 
 const logout = async (page) => {
-  await page.getByRole("button", { name: "logout" }).click();
+  // await page.getByRole("button", { name: "logout" }).click();
+  await page.getByTestId("logout-btn").click();
 };
 
 const createBlog = async (page, newBlog = blog) => {
-  await page.getByRole("button", { name: "create new blog" }).click();
+  // await page.goto("http://localhost:8080/blogs");
+  await page.getByTestId("blogs-link").click();
+  await page.getByRole("button", { name: "create" }).click();
   await page.getByLabel("title").fill(newBlog.title);
   await page.getByLabel("author").fill(newBlog.author);
   await page.getByLabel("url").fill(newBlog.url);
@@ -39,7 +42,8 @@ const createBlog = async (page, newBlog = blog) => {
 };
 
 const deleteBlog = async (page) => {
-  await page.getByText("view").click();
+  // await page.getByText("view").click();
+  await page.getByText("remove").click();
   page.on("dialog", (dialog) => dialog.accept());
   await page.getByText("remove").click();
 };

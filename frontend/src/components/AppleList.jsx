@@ -27,6 +27,7 @@ const AppleList = ({ children, data }) => {
               .toSorted((a, b) => b.likes - a.likes)
               .map((item) => (
                 <p
+                  className="apple-list-item"
                   onDoubleClick={() => navigate(`/${data.type}/${item.id}`)}
                   onClick={handleClick(item.id)}
                   key={item.id}

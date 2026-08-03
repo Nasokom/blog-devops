@@ -39,7 +39,7 @@ const Notification = () => {
                   {info[msg.type]}
                 </div>
                 {/* <audio controls src="/sosumi.mp3" autoPlay={true}></audio> */}
-                <p>{msg.content}</p>
+                <p className="notif-msg">{msg.content}</p>
                 <div className="notif-bottom">
                   <button onClick={handleClose(msg)}>close</button>
                 </div>

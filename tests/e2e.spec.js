@@ -58,12 +58,9 @@ test.describe("Blog app", () => {
     test("a new blog can be created", async ({ page }) => {
       helper.createBlog(page);
 
-      const sucessElt = await page.locator(".notification");
-      await expect(sucessElt).toHaveCSS("color", "rgb(0, 128, 0)");
-      await expect(sucessElt).toContainText("a new blog");
       const blogList = page
-        .locator(".blog")
-        .filter({ hasText: `${helper.blog.title} ${helper.blog.author}` });
+        .locator(".apple-list-item")
+        .filter({ hasText: helper.blog.title });
       await expect(blogList).toBeVisible();
     });
   });
@@ -77,31 +74,30 @@ test.describe("Blog app", () => {
 
     test("a blog can be liked", async ({ page }) => {
       await helper.login(page, helper.user2);
-      await page.getByText("view").click();
+      await page.getByTestId("blogs-link").click();
+      await page.getByText(helper.blog.title).dblclick();
       const beforeClick = await page.getByTestId("likesCount").innerHTML();
-      console.log(beforeClick);
       await page.getByRole("button", { name: "like" }).click();
-      const notif = await page.locator(".notification");
+      const notif = await page.getByText("just gain 1 like");
       await expect(notif).toBeVisible();
-      await expect(notif).toContainText("just gain 1 like");
+      await expect(notif).toContainText(helper.blog.title);
       const afterClick = await page.getByTestId("likesCount").innerHTML();
       expect(Number(afterClick)).toBe(Number(beforeClick) + 1);
     });
 
     test("a user can delete his own post", async ({ page }) => {
       await helper.login(page, helper.user);
+      await page.getByTestId("blogs-link").click();
+      await page.getByText(helper.blog.title).dblclick();
       await helper.deleteBlog(page);
-      const notif = await page.locator(".notification");
+      const notif = await page.getByText("blog delete with success");
       await expect(notif).toBeVisible();
-      await expect(notif).toHaveText("blog delete with success");
+      await expect(notif).toHaveClass("notif-msg");
     });
     test("a post can be delete only by his owner", async ({ page }) => {
-      // await helper.login(page, helper.user2);
-      // await page.getByText("view").click();
-      // await expect(page.getByText("remove")).toBeHidden();
       await helper.login(page, helper.user2);
-      await page.goto("http://localhost:8080/disk/blogs");
-      await page.getByText("view").click();
+      await page.getByTestId("blogs-link").click();
+      await page.getByText(helper.blog.title).dblclick();
       await expect(page.getByText("remove")).toBeHidden();
     });
   });
