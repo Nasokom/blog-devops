@@ -27,7 +27,6 @@ jobs:
         run: docker build -t todo-front -f Dockerfile .
 
       - name: Start blog-devops with Docker Compose
-        # working-directory: ./
         run: docker compose up -d
 
       - name: Wait for services to be ready
@@ -40,23 +39,20 @@ jobs:
         run: docker ps
 
       - name: Install dependencies
-        # working-directory: ./tests
         run: npm ci
 
       - name: Install Playwright browsers
-        # working-directory: ./
         run: npx playwright install --with-deps chromium
 
       - name: Run Playwright tests
-        # working-directory: ./
-        run: npm run test:e2e
+        run: npm run test
 
       - name: Upload Playwright report
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
-          path: todo-tests/playwright-report/
+          path: tests/playwright-report/
           retention-days: 7
 
       - name: Upload test results
@@ -69,7 +65,6 @@ jobs:
 
       - name: Show container logs on failure
         if: failure()
-        # working-directory: ./todo-app
         run: |
           echo "=== Backend logs ==="
           docker compose logs backend
@@ -80,5 +75,4 @@ jobs:
 
       - name: Clean up Docker containers
         if: always()
-        # working-directory: ./todo-app
         run: docker compose down -v
