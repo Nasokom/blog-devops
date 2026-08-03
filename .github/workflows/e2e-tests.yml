@@ -27,7 +27,7 @@ jobs:
         run: docker build -t todo-front -f Dockerfile .
 
       - name: Start blog-devops with Docker Compose
-        working-directory: ./
+        # working-directory: ./
         run: docker compose up -d
 
       - name: Wait for services to be ready
@@ -40,7 +40,7 @@ jobs:
         run: docker ps
 
       - name: Install dependencies
-        working-directory: ./tests
+        # working-directory: ./tests
         run: npm ci
 
       - name: Install Playwright browsers
