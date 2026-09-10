@@ -32,6 +32,7 @@ const blogObject = {
   title: "Test are in fact pretty funs",
   author: "Nasoa.K",
   url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+  comments: [],
   likes: 20,
 };
 

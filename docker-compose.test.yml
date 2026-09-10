@@ -15,7 +15,7 @@ services:
     image: blog-backend
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: test.Dockerfile
     volumes:
       - backend_node_modules:/usr/src/app/node_modules
       # - ./backend/:/usr/src/app

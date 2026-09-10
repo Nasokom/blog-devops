@@ -166,6 +166,7 @@ describe("HTTP PUT request to api/blogs/:id", () => {
       .put(`/api/blogs/${firstItem.id}`)
       .expect(200)
       .send(helper.blogObject);
+    console.log({ ...helper.blogObject, id: result.body.id }, result.body);
     assert.deepStrictEqual(
       { ...helper.blogObject, id: result.body.id },
       result.body,

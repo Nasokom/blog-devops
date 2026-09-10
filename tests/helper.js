@@ -14,6 +14,7 @@ const blog = {
   title: "Test are in fact pretty funs",
   url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
   author: "Nasoa.K",
+  comments: [],
 };
 
 const login = async (page, content) => {

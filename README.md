@@ -61,56 +61,59 @@ docker compose -f docker-compose.yml up --build
 
 ---
 
-## Running End-to-End Tests
+## Running Tests
 
-### Local Environment
+### Unit test
 
-Start the backend in test mode:
+#### Backend:
+
+Start the back end test server:
 
 ```bash
 cd backend
 npm run start:test
 ```
 
-Start the frontend:
+In a new terminal run the backend tests
+
+```bash
+cd backend
+npm run test
+```
+
+#### Frontend:
+
+Start the frontend development server:
 
 ```bash
 cd frontend
 npm run dev
 ```
 
-Install Playwright and run the tests:
+In a new terminal, run the frontend tests
 
 ```bash
-npx playwright install --with-deps chromium
+cd frontend
 npm run test
 ```
 
----
+### End to end test
 
-### Docker Compose
-
-#### 1. Build the backend test image
+#### 1. Build the image and start applications
 
 ```bash
-cd backend
-
-docker build \
-  --build-arg START_CMD="npm run start:test" \
-  -t blog-backend \
-  -f Dockerfile .
+docker compose -f docker-compose.test.yml up --build -d
 ```
 
-#### 2. Start the application
-
-```bash
-docker compose -f docker-compose.yml up
-```
-
-#### 3. Run the Playwright tests
+#### 2. Install Playwright dependencies
 
 ```bash
 npx playwright install --with-deps chromium
+```
+
+#### 3. Run the E2E tests
+
+```bash
 npm run test
 ```
 
