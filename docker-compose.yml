@@ -4,8 +4,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    ports:
-      - 4173:4173
+    # ports:
+    #   - 4173:4173
     # environment:
     #   - BACKEND_URL=/api
     volumes:
@@ -33,3 +33,4 @@ volumes:
   front_node_modules:
   backend_node_modules:
   dist:
+  mongo_data:
